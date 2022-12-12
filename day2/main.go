@@ -7,18 +7,43 @@ import (
     "log"
 )
 
-func roundPoint(x int, y int) int { //where x is us and y is opponent
-    var roundPoint int = 0;
-    if(x == y){
-        roundPoint = 3    
-    }else if(x == (y+1)){ //for a win
-        roundPoint = 6
-    }else if((x == 1) && (y == 3)){
+//strat for PART A
+// func roundPoint(x int, y int) int { //where x is us and y is opponent
+//     var roundPoint int = 0;
+//     if(x == y){
+//         roundPoint = 3    
+//     }else if(x == (y+1)){ //for a win
+//         roundPoint = 6
+//     }else if((x == 1) && (y == 3)){
+//         roundPoint = 6
+//     }
+// 
+//     return x + roundPoint
+//     
+// }
+
+//strat for PART B
+func roundPoint(x int, y int) int { //x is still us, y is the opponent
+    roundPoint := 0
+    stratPoint := 0 //the play we are playing lol
+    if(x == 1){ //this is loss
+        if(y > 1){
+            stratPoint = y - 1
+        }else{
+            stratPoint = 3
+        }
+    }else if(x == 2){ //this is a draw
+        roundPoint = 3
+        stratPoint = y
+    }else if(x == 3){ //this is a win
+        if(y < 3){
+            stratPoint = y + 1
+        }else{
+            stratPoint = 1
+        }
         roundPoint = 6
     }
-
-    return x + roundPoint
-    
+    return roundPoint + stratPoint
 }
 
 func main(){
